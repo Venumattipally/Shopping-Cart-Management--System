@@ -1,5 +1,8 @@
 package com.shoppingcart.managementsystemn.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +30,35 @@ public class ProductService {
 		productRepo.save(product);
 		
 		return productDto;
+	}
+
+	public List<ProductDto> getAllProducts() {
+		// TODO Auto-generated method stub
+		List<ProductDto>  productsDto =  new ArrayList();
+		List<Product> products = productRepo.findAll();
+		for(Product product : products) {
+			ProductDto productDto =  new ProductDto(product.getName(), product.getPrice(), 
+					product.getDescription(), product.getStock());
+			productsDto.add(productDto);
+		}
+		
+		return productsDto;
+		
+	}
+
+	public ProductDto updateProduct(Integer id, ProductDto product) {
+		// TODO Auto-generated method stub
+		
+		Product oldProduct = productRepo.findById(id).orElseThrow(() -> new RuntimeException("product not found"));
+		
+		oldProduct.setDescription(product.getDescription());
+		oldProduct.setName(product.getName());
+		oldProduct.setPrice(product.getPrice());
+		oldProduct.setStock(product.getStock());
+		
+		productRepo.save(oldProduct);
+	
+		return product;
 	}
 	
 	
