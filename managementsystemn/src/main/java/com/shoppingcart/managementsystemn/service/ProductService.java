@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.shoppingcart.managementsystemn.dto.ProductDto;
 import com.shoppingcart.managementsystemn.entity.Product;
+import com.shoppingcart.managementsystemn.exception.ProductNotFoundException;
 import com.shoppingcart.managementsystemn.repository.ProductRepo;
 
 
@@ -49,7 +50,7 @@ public class ProductService {
 	public ProductDto updateProduct(Integer id, ProductDto product) {
 		// TODO Auto-generated method stub
 		
-		Product oldProduct = productRepo.findById(id).orElseThrow(() -> new RuntimeException("product not found"));
+		Product oldProduct = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("product not found"));
 		
 		oldProduct.setDescription(product.getDescription());
 		oldProduct.setName(product.getName());
@@ -59,6 +60,16 @@ public class ProductService {
 		productRepo.save(oldProduct);
 	
 		return product;
+	}
+
+	public ProductDto deleteProduct(Integer id) {
+		Product product = productRepo.findById(id).orElseThrow(() -> new ProductNotFoundException("product not found"));
+		
+		productRepo.delete(product);
+		
+		ProductDto productDto =  modelMapper.map(product, ProductDto.class);
+		
+		return productDto;
 	}
 	
 	

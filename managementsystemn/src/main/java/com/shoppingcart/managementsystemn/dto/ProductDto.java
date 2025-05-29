@@ -5,6 +5,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class ProductDto {
 		
 	@NotBlank(message ="product name is required")
@@ -23,6 +26,14 @@ public class ProductDto {
 	
 	
 	
+
+	public ProductDto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 
 	public ProductDto( String name, Double price, String description, Integer stock) {
 		super();
