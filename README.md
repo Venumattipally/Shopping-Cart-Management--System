@@ -50,10 +50,3 @@ A backend RESTful API built using **Spring Boot** for managing a shopping cart s
 
 ## 🧪 Sample Add to Cart Request
 
-```json
-POST /api/cart/add
-
-{
-  "productId": 101,
-  "quantity": 2
-}
