@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shoppingcart.managementsystemn.dto.JwtTokenResponseDto;
+import com.shoppingcart.managementsystemn.dto.LoginRequest;
 import com.shoppingcart.managementsystemn.dto.UserRequestDto;
 import com.shoppingcart.managementsystemn.service.UserService;
 
@@ -17,16 +19,26 @@ public class UserController {
 	
 	
 	@Autowired
-	private UserService usrService;
+	private UserService userService;
 	
 	
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@RequestBody UserRequestDto userDto)  {
 		
-		String response = usrService.createUser(userDto);
+		System.out.println("register user method is called");
+		
+		String response = userService.createUser(userDto);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(response);
 	
+	}
+	
+	@PostMapping("login")
+	public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
+		
+	JwtTokenResponseDto response = userService.authenticateUser(request);
+	
+	  return ResponseEntity.status(HttpStatus.OK).body(response);
 	}
 
 }
