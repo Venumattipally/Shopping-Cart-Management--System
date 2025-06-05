@@ -1,7 +1,7 @@
 package com.shoppingcart.managementsystemn.security;
 
-import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,11 +9,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.shoppingcart.managementsystemn.jwt.JwtFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+	
+	@Autowired
+	private JwtFilter jwtFilter;
 	
 	@Bean
 	public SecurityFilterChain securtiyFilterChain(HttpSecurity http) throws Exception{
@@ -21,7 +27,8 @@ public class SecurityConfig {
 		http.csrf().disable()
 		    .authorizeHttpRequests(auth -> auth.antMatchers("/api/user/signup").permitAll()
 		    		                      .anyRequest().authenticated())
-		    .httpBasic();
+		   
+		    .addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 		    
 	}
