@@ -32,5 +32,57 @@ public class Cart {
 	private List<CartItem> cartItems =  new ArrayList();
 	
 	@Column(name="total_amount")
-	private Double totalProce;
+	private Double totalPrice;
+
+	public Cart(Integer id, UserEntity user, List<CartItem> cartItems, Double totalPrice) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.cartItems = cartItems;
+		this.totalPrice = totalPrice;
+	}
+
+	public Cart() {
+		
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public UserEntity getUser() {
+		return user;
+	}
+
+	public void setUser(UserEntity user) {
+		this.user = user;
+	}
+
+	public List<CartItem> getCartItems() {
+		return cartItems;
+	}
+
+	public void setCartItems(List<CartItem> cartItems) {
+		this.cartItems = cartItems;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalProce) {
+		this.totalPrice = totalProce;
+	}
+
+	@Override
+	public String toString() {
+		return "Cart [id=" + id + ", user=" + user + ", cartItems=" + cartItems + ", totalProce=" + totalPrice + "]";
+	}
+	
+	
+	
 }
