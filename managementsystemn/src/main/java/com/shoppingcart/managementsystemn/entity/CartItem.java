@@ -1,6 +1,7 @@
 package com.shoppingcart.managementsystemn.entity;
 
-import javax.persistence.CascadeType;
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -33,14 +34,12 @@ public class CartItem {
 	@Column(name="totalPrice")
 	private Double totalPrice;
 
-	public CartItem(Integer id, Product product, Cart cart, Integer quantity, Double totalPrice) {
-		super();
-		Id = id;
-		this.product = product;
-		this.cart = cart;
-		this.quantity = quantity;
-		this.totalPrice = totalPrice;
-	}
+	/*private LocalDateTime creationTime;
+	private LocalDateTime updationTime;*/
+	
+	
+    
+
 
 	public CartItem(Product product2, Cart cart2, Integer quantity2, Double totalPrice2) {
 		
@@ -51,6 +50,15 @@ public class CartItem {
 		this.quantity = quantity2;
 		this.totalPrice = totalPrice2;
 		
+	}
+
+	public CartItem(Integer id, Product product, Cart cart, Integer quantity, Double totalPrice) {
+		super();
+		Id = id;
+		this.product = product;
+		this.cart = cart;
+		this.quantity = quantity;
+		this.totalPrice = totalPrice;
 	}
 
 	public Integer getId() {
@@ -92,12 +100,15 @@ public class CartItem {
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+	
+	
 
 	@Override
 	public String toString() {
 		return "CartItem [Id=" + Id + ", product=" + product + ", cart=" + cart + ", quantity=" + quantity
-				+ ", totalPrice=" + totalPrice + "]";
+				+ ", totalPrice=" + totalPrice +  "]";
 	}
+
 	
 	
 }

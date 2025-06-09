@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,7 +24,7 @@ public class Cart {
 	@Column(name="id")
 	private Integer id;
 	
-	@OneToMany
+	@OneToOne
 	@JoinColumn(name="user_id")
 	private UserEntity user;
 
@@ -34,17 +35,18 @@ public class Cart {
 	@Column(name="total_amount")
 	private Double totalPrice;
 
-	public Cart(Integer id, UserEntity user, List<CartItem> cartItems, Double totalPrice) {
+	public Cart(UserEntity user, List<CartItem> cartItems, Double totalPrice) {
 		super();
-		this.id = id;
 		this.user = user;
 		this.cartItems = cartItems;
 		this.totalPrice = totalPrice;
 	}
 
+
 	public Cart() {
-		
+		// TODO Auto-generated constructor stub
 	}
+
 
 	public Integer getId() {
 		return id;

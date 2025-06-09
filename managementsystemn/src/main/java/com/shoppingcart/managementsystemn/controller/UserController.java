@@ -33,8 +33,10 @@ public class UserController {
 	
 	}
 	
-	@PostMapping("login")
+	@PostMapping("/login")
 	public ResponseEntity<?> loginUser(@RequestBody LoginRequest request) {
+		
+		System.out.println("login user method is called ");
 		
 	JwtTokenResponseDto response = userService.authenticateUser(request);
 	
