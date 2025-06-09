@@ -1,5 +1,7 @@
 package com.shoppingcart.managementsystemn.service;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -44,36 +46,44 @@ public class CartService {
 		
 		UserEntity user  = userRepo.findByUsername(username).orElseThrow(() -> 
 		                  new UsernameNotFoundException("user not found "));
-		
+		System.out.println(user);
 		Product product = 	productRepo.findById(request.getProdcutId()).orElseThrow(() -> 
         new ProductNotFoundException("this product is not found"));
 		
 		Optional<Cart>  OptCart = cartRepo.findByUser(user);
-		
+		Cart cart =  null;;   
 		if(!OptCart.isPresent())
 		{
-			Cart cart =  new Cart();
+			 cart =  OptCart.get();
 			cart.setUser(user);
 			cartRepo.save(cart);
 		}
-		Optional<CartItem> OptItem = cartItemRepo.findByProductAndUser(product,user);
+		Optional<CartItem> OptItem = cartItemRepo.findByProductAndCart(product,cart);
 		
 		if(!OptItem.isPresent()) {
 			
-			CartItem cartItem =new CartItem(product,OptCart.get(),request.getQuantity(),product.getPrice());
+			CartItem cartItem =new CartItem(product,cart,request.getQuantity(),product.getPrice());
 			
 		}
 		else {
 		CartItem item =  OptItem.get();
 		item.setQuantity(item.getQuantity() + request.getQuantity());
 		item.setTotalPrice(item.getQuantity() * product.getPrice());
-		item.setCart(OptCart.get());
+		item.setCart(cart);
 		cartItemRepo.save(item);
 		}
 			
 		//neeed to calculte total price in the cart based on number of products and quantity
 		
-		return mapper.map(OptCart.get(), CartResponseDto.class);
+	 /* List<CartItem> items =  cart.getCartItems();
+		Double sum =0.0;
+	   for(CartItem item : items) {
+		   
+		   sum =  sum + item.getTotalPrice();
+	   }*/
+		
+		
+		return mapper.map(cart, CartResponseDto.class);
 		
 			
 	}

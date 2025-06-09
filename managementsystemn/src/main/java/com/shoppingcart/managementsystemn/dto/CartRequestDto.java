@@ -8,12 +8,12 @@ public class CartRequestDto {
 	private Integer prodcutId;
 	
 	@NotBlank(message="quantity should not be blank")
-	private Integer Quantity;
+	private Integer quantity;
 	
 	public CartRequestDto(Integer prodcutId, Integer quantity) {
 		super();
 		this.prodcutId = prodcutId;
-		Quantity = quantity;
+		quantity = quantity;
 	}
 
 	
@@ -26,17 +26,17 @@ public class CartRequestDto {
 	}
 
 	public Integer getQuantity() {
-		return Quantity;
+		return quantity;
 	}
 
 	public void setQuantity(Integer quantity) {
-		Quantity = quantity;
+		quantity = quantity;
 	}
 
 
 	@Override
 	public String toString() {
-		return "CartRequestDro [prodcutId=" + prodcutId + ", Quantity=" + Quantity + "]";
+		return "CartRequestDro [prodcutId=" + prodcutId + ", Quantity=" + quantity + "]";
 	}
 	
    

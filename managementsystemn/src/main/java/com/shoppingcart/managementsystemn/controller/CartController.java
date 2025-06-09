@@ -24,8 +24,10 @@ public class CartController {
 	@PostMapping("/cart/add")
 	public ResponseEntity<?> createCart(@RequestBody CartRequestDto  request,
 			        @AuthenticationPrincipal CustomUserDetails userDetails) {
+		System.out.println("add tp cart controller method is called ");
 		
 		String username =  userDetails.getUsername();
+		System.out.println("currently authenticated user");
 		
 		CartResponseDto response =  cartervice.addCart(username,request);
 		return ResponseEntity.status(HttpStatus.OK).body(response);	

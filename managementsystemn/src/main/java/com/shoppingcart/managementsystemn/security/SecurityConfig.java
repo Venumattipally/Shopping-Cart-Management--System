@@ -57,9 +57,6 @@ public class SecurityConfig {
 		};
 	}
 	
-	@Bean
-	public ModelMapper mapper(){
-		return new ModelMapper();
-	}
+
 }
 
